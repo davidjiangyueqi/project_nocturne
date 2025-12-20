@@ -24,6 +24,19 @@ export const restaurants: Restaurant[] = [
     shortSummary: "A stand‑in restaurant entry; replace with real locations and notes.",
     rating: "To be added",
   },
+  {
+    slug: "vespertine-culver-city",
+    name: "Vespertine",
+    city: "Culver City",
+    country: "USA",
+    cuisine: "Fine dining",
+    latitude: 34.0259,
+    longitude: -118.3884,
+    thumbnail: "/photos/restaurants/vespertine.jpg",
+    shortSummary:
+      "A multi-course, architecture-driven experience; see the full PDF review for the complete story.",
+    rating: "Review PDF available",
+  },
 ];
 
 

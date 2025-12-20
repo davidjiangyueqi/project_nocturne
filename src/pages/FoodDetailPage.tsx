@@ -1,114 +1,53 @@
-import { useParams, Link } from "react-router-dom";
-import { HeroHeader } from "../components/HeroHeader";
-import { restaurants } from "../data/restaurants";
+import { useParams, useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import { ArrowLeft } from "lucide-react";
 import { restaurantReviews } from "../data/reviews";
 
 export function FoodDetailPage() {
   const { restaurantSlug } = useParams<{ restaurantSlug: string }>();
+  const navigate = useNavigate();
 
-  const restaurant = restaurants.find((r) => r.slug === restaurantSlug);
   const review = restaurantReviews.find((r) => r.restaurantSlug === restaurantSlug);
 
-  if (!restaurant) {
+  if (!review) {
     return (
-      <div className="space-y-4">
-        <HeroHeader
-          title="Review not found"
-          subtitle="The restaurant you were looking for does not exist in this index yet."
-        />
-        <Link
-          to="/food"
-          className="inline-flex text-sm text-slate-200 underline underline-offset-4"
-        >
-          Back to all restaurant reviews
-        </Link>
+      <div className="flex min-h-screen items-center justify-center">
+        <p className="text-slate-400">Review not found</p>
       </div>
     );
   }
 
+  const backgroundColor = review.backgroundColor || "#0f172a"; // Default to slate-900
+
   return (
-    <div className="space-y-8">
-      <HeroHeader
-        title={restaurant.name}
-        subtitle={`${restaurant.city}, ${restaurant.country}${
-          restaurant.cuisine ? ` • ${restaurant.cuisine}` : ""
-        }`}
-      />
-
-      <p className="text-xs text-slate-300">
-        This HTML layout is designed to mirror the structure of your original PDF review,
-        while remaining readable on phones and laptops.
-      </p>
-
-      <section className="space-y-6">
-        {review?.pages.map((page, pageIndex) => (
-          <article
-            key={pageIndex}
-            className="relative mx-auto max-w-3xl rounded-[32px] border border-slate-800/90 bg-slate-950/95 p-7 shadow-soft-xl sm:p-9"
-          >
-            <div className="pointer-events-none absolute inset-x-10 top-0 h-10 bg-gradient-to-b from-white/5 to-transparent" />
-            <header className="mb-6 space-y-1">
-              {page.title && (
-                <h2 className="text-lg font-semibold tracking-tight text-slate-50">
-                  {page.title}
-                </h2>
-              )}
-              {page.subtitle && (
-                <p className="text-xs uppercase tracking-[0.25em] text-slate-400">
-                  {page.subtitle}
-                </p>
-              )}
-            </header>
-            <div className="space-y-4 text-[0.9rem] leading-relaxed text-slate-100">
-              {page.blocks.map((block, idx) => {
-                if (block.type === "paragraph") {
-                  return (
-                    <p key={idx} className="font-serif">
-                      {block.text}
-                    </p>
-                  );
-                }
-                if (block.type === "quote") {
-                  return (
-                    <figure
-                      key={idx}
-                      className="border-l-2 border-slate-600/80 pl-4 text-sm italic text-slate-200"
-                    >
-                      “{block.text}”
-                    </figure>
-                  );
-                }
-                if (block.type === "image") {
-                  return (
-                    <figure key={idx} className="overflow-hidden rounded-2xl border border-slate-800">
-                      <img
-                        src={block.src}
-                        alt={block.alt}
-                        className="h-full w-full object-cover"
-                        loading="lazy"
-                      />
-                    </figure>
-                  );
-                }
-                return null;
-              })}
-            </div>
-            <footer className="mt-6 flex items-center justify-between text-[0.7rem] text-slate-500">
-              <span>
-                {restaurant.name} • {restaurant.city}
-              </span>
-              <span>Page {pageIndex + 1}</span>
-            </footer>
-          </article>
-        ))}
-      </section>
-
-      <Link
-        to="/food"
-        className="inline-flex text-sm text-slate-200 underline underline-offset-4"
+    <div 
+      className="fixed inset-0 z-40 overflow-y-auto"
+      style={{ backgroundColor }}
+    >
+      {/* Floating back button */}
+      <motion.button
+        onClick={() => navigate(-1)}
+        className="fixed top-6 left-6 z-50 flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-black/40 backdrop-blur-md transition-all hover:bg-black/60 hover:border-white/30"
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.95 }}
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.3, ease: "easeOut" }}
+        aria-label="Go back to previous page"
       >
-        Back to all restaurant reviews
-      </Link>
+        <ArrowLeft className="h-5 w-5 text-white" />
+      </motion.button>
+
+      {review.images.map((imageSrc, imageIndex) => (
+        <div key={imageIndex} className="flex justify-center" style={{ backgroundColor }}>
+          <img
+            src={imageSrc}
+            alt={`Review page ${imageIndex + 1}`}
+            className="w-full h-auto object-contain"
+            loading="lazy"
+          />
+        </div>
+      ))}
     </div>
   );
 }
