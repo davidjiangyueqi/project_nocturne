@@ -9,20 +9,23 @@ export type Restaurant = {
   thumbnail?: string;
   shortSummary?: string;
   rating?: string;
+  visitedAt?: string; // ISO date or readable label for timeline
 };
 
 export const restaurants: Restaurant[] = [
   {
-    slug: "placeholder-bistro",
-    name: "Placeholder Bistro",
-    city: "City",
-    country: "Country",
-    cuisine: "Modern European",
-    latitude: 48.8566,
-    longitude: 2.3522,
-    thumbnail: "/photos/restaurants/placeholder-bistro.jpg",
-    shortSummary: "A stand‑in restaurant entry; replace with real locations and notes.",
-    rating: "To be added",
+    slug: "rosetta-mexico-city",
+    name: "Rosetta",
+    city: "Mexico City",
+    country: "Mexico",
+    cuisine: "Modern Mexican",
+    latitude: 19.4177,
+    longitude: -99.1638,
+    thumbnail: "/photos/restaurants/rosetta.jpg",
+    shortSummary:
+      "Mexico City's iconic Rosetta in Roma Norte; see the full PDF review for the complete story.",
+    rating: "Review PDF available",
+    visitedAt: "2024-09-06",
   },
   {
     slug: "vespertine-culver-city",
@@ -36,6 +39,7 @@ export const restaurants: Restaurant[] = [
     shortSummary:
       "A multi-course, architecture-driven experience; see the full PDF review for the complete story.",
     rating: "Review PDF available",
+    visitedAt: "2025-05-06",
   },
 ];
 

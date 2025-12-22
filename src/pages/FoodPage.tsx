@@ -1,13 +1,37 @@
 import { Link } from "react-router-dom";
 import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import L from "leaflet";
 import { HeroHeader } from "../components/HeroHeader";
 import { SectionHeader } from "../components/SectionHeader";
 import { restaurants } from "../data/restaurants";
 
 export function FoodPage() {
+  const restaurantMarkerIcon = L.divIcon({
+    className: "",
+    html:
+      '<span style="display:inline-flex;width:14px;height:14px;border-radius:9999px;background:rgba(129,140,248,0.9);box-shadow:0 0 12px rgba(129,140,248,0.9);border:1px solid rgba(191,219,254,0.9);"></span>',
+    iconSize: [14, 14],
+    iconAnchor: [7, 7],
+  });
+
+  const formatVisitedDate = (isoDate?: string) => {
+    if (!isoDate) return "";
+    const [yearStr, monthStr, dayStr] = isoDate.split("-");
+    const year = Number(yearStr);
+    const month = Number(monthStr);
+    const day = Number(dayStr);
+    if (!year || !month || !day) return isoDate;
+    const date = new Date(year, month - 1, day);
+    return date.toLocaleDateString(undefined, {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
+  };
+
   const center = {
-    lat: restaurants[0]?.latitude ?? 48.8566,
-    lng: restaurants[0]?.longitude ?? 2.3522,
+    lat: restaurants[0]?.latitude ?? 19.4177,
+    lng: restaurants[0]?.longitude ?? -99.1638,
   };
 
   return (
@@ -17,28 +41,29 @@ export function FoodPage() {
         subtitle="My culinary adventures around the world"
       />
 
-      <section className="grid gap-8 md:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)]">
-        <div className="space-y-4">
-          <SectionHeader
-            eyebrow="Map"
-            title="Restaurants Visited"
-            description="Move the map to see where I've been"
-          />
-          <div className="overflow-hidden rounded-3xl border border-slate-800 bg-slate-900/80">
+      <section className="space-y-4">
+        <SectionHeader
+          eyebrow="Map"
+          title="Restaurants Visited"
+          description="Pan around to see each stop—this map takes center stage."
+        />
+        <div className="mx-auto max-w-6xl">
+          <div className="overflow-hidden rounded-3xl border border-slate-800 bg-slate-900/80 shadow-xl">
             <MapContainer
               center={[center.lat, center.lng]}
-              zoom={6}
-              style={{ height: 360, width: "100%" }}
+              zoom={5}
+              style={{ height: 520, width: "100%" }}
               scrollWheelZoom={false}
             >
               <TileLayer
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/">CARTO</a>'
+                url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
               />
               {restaurants.map((restaurant) => (
                 <Marker
                   key={restaurant.slug}
                   position={[restaurant.latitude, restaurant.longitude]}
+                  icon={restaurantMarkerIcon}
                 >
                   <Popup>
                     <div className="space-y-1 text-xs">
@@ -62,32 +87,68 @@ export function FoodPage() {
             </MapContainer>
           </div>
         </div>
+      </section>
 
-        <div className="space-y-4">
-          <SectionHeader
-            eyebrow="Index"
-            title="All restaurant reviews"
-            description="Browse by city and cuisine. This list will grow as more reviews are added."
-          />
-          <div className="space-y-3 text-sm">
-            {restaurants.map((restaurant) => (
-              <Link
-                key={restaurant.slug}
-                to={`/food/${restaurant.slug}`}
-                className="block rounded-2xl border border-slate-800 bg-slate-900/80 px-4 py-3 transition hover:border-slate-400/80"
-              >
-                <p className="font-medium text-slate-50">{restaurant.name}</p>
-                <p className="text-xs text-slate-300">
-                  {restaurant.city}, {restaurant.country}
-                  {restaurant.cuisine ? ` • ${restaurant.cuisine}` : null}
-                </p>
-                {restaurant.shortSummary && (
-                  <p className="mt-1 text-xs text-slate-300">
-                    {restaurant.shortSummary}
-                  </p>
-                )}
-              </Link>
-            ))}
+      <section className="space-y-4">
+        <SectionHeader
+          eyebrow="Timeline"
+          title="Culinary timeline"
+          description="Scroll through stops and jump into full reviews."
+        />
+        <div className="overflow-x-auto pb-6">
+          <div className="relative min-w-full">
+            {/* Timeline axis */}
+            <div className="pointer-events-none absolute left-0 right-0 top-1/2 -translate-y-1/2 border-t border-dashed border-slate-700" />
+
+            <div className="flex gap-8 snap-x snap-mandatory px-2">
+              {restaurants.map((restaurant, index) => (
+                <div
+                  key={restaurant.slug}
+                  className="relative flex min-w-[260px] snap-start flex-col items-center"
+                >
+                  {/* Marker on axis */}
+                  <div className="relative z-10 mb-3 flex items-center gap-2">
+                    <div className="flex h-8 items-center rounded-full bg-slate-900/90 px-3 text-xs text-slate-200 ring-1 ring-slate-700">
+                      <span className="mr-1 text-slate-500">#{index + 1}</span>
+                      <span className="h-1 w-4 rounded-full bg-indigo-400" />
+                      {restaurant.visitedAt && (
+                        <span className="ml-2 text-[0.7rem] text-slate-300">
+                          {formatVisitedDate(restaurant.visitedAt)}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Card below axis */}
+                  <div className="mt-2 w-full max-w-xs rounded-2xl border border-slate-800 bg-slate-900/80 px-4 py-4 text-left shadow-sm transition hover:border-slate-400/80">
+                    <p className="text-sm font-semibold text-slate-50">
+                      {restaurant.name}
+                    </p>
+                    <p className="mt-0.5 text-xs text-slate-300">
+                      {restaurant.city}, {restaurant.country}
+                      {restaurant.cuisine ? ` • ${restaurant.cuisine}` : null}
+                    </p>
+                    {restaurant.shortSummary && (
+                      <p className="mt-2 text-xs text-slate-300">
+                        {restaurant.shortSummary}
+                      </p>
+                    )}
+                    <div className="mt-3 flex items-center justify-between">
+                      <Link
+                        to={`/food/${restaurant.slug}`}
+                        className="inline-flex items-center gap-1 rounded-full bg-indigo-500 px-3 py-1 text-[0.7rem] font-semibold text-slate-50 shadow-sm transition hover:bg-indigo-400"
+                      >
+                        <span>Open review</span>
+                        <span aria-hidden="true">↗</span>
+                      </Link>
+                      <span className="text-[0.65rem] text-slate-500">
+                        Timeline stop
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
