@@ -3,6 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
+      - master
       - main
   workflow_dispatch:
 
@@ -45,7 +46,19 @@ jobs:
             exit 1
           fi
           echo "Build verification successful"
+          echo "Contents of dist/index.html:"
+          head -10 dist/index.html
+          echo ""
+          echo "Files in dist/:"
           ls -la dist/
+          echo ""
+          echo "Checking for dev script tag (should NOT exist):"
+          if grep -q "/src/main.tsx" dist/index.html; then
+            echo "ERROR: dist/index.html contains dev script tag!"
+            exit 1
+          else
+            echo "✓ dist/index.html is correct (no dev script tag)"
+          fi
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
