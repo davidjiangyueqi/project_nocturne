@@ -1,6 +1,203 @@
+import { useRef } from "react";
 import { Link } from "react-router-dom";
-import { HeroHeader } from "../components/HeroHeader";
-import { PhotoGrid } from "../components/PhotoGrid";
+import { motion, useInView } from "framer-motion";
+
+type Photo = {
+  id: string;
+  alt: string;
+  src: string;
+  title: string;
+  subtitle: string;
+};
+
+function ImageSection({ photo }: { photo: Photo }) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, amount: 0.3 });
+
+  return (
+    <div
+      ref={ref}
+      className="relative overflow-hidden bg-slate-950"
+      style={{
+        width: "100vw",
+        height: "100vh",
+        marginLeft: "calc(-50vw + 50%)",
+        position: "relative",
+      }}
+    >
+      <img
+        src={photo.src}
+        alt={photo.alt}
+        className="h-full w-full object-cover"
+        style={{
+          objectFit: "cover",
+          objectPosition: "center",
+        }}
+      />
+      {/* Overlay for better text readability */}
+      <div className="absolute inset-0 bg-slate-950/20" />
+      
+      {/* Text Overlay - Kiln SF style */}
+      <div className="absolute inset-0 flex items-center justify-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+          transition={{
+            duration: 1.2,
+            ease: [0.25, 0.1, 0.25, 1],
+            delay: 0.2,
+          }}
+          className="text-center"
+        >
+          {/* Small label for the main hero image */}
+          {photo.id === "portrait-1" && (
+            <motion.p
+              initial={{ opacity: 0, y: 8 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 8 }}
+              transition={{
+                duration: 0.9,
+                ease: [0.25, 0.1, 0.25, 1],
+                delay: 0.25,
+              }}
+              className="mb-4 text-xs uppercase tracking-[0.35em] text-slate-300/90"
+            >
+              Pianist &amp; Gastronomist
+            </motion.p>
+          )}
+          <motion.h2
+            initial={{ opacity: 0, y: 10 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+            transition={{
+              duration: 1,
+              ease: [0.25, 0.1, 0.25, 1],
+              delay: 0.4,
+            }}
+            className="text-5xl font-light lowercase tracking-[0.15em] text-white sm:text-6xl md:text-7xl"
+            style={{
+              fontFamily: '"Cormorant Garamond", "Iowan Old Style", Georgia, serif',
+              letterSpacing: "0.15em",
+              whiteSpace: "pre-wrap",
+            }}
+          >
+            {photo.title}
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+            transition={{
+              duration: 1,
+              ease: [0.25, 0.1, 0.25, 1],
+              delay: 0.6,
+            }}
+            className="mt-4 text-sm font-light lowercase tracking-[0.2em] text-white/90 sm:text-base"
+            style={{
+              fontFamily: '"Cormorant Garamond", "Iowan Old Style", Georgia, serif',
+              letterSpacing: "0.2em",
+            }}
+          >
+            {photo.subtitle}
+          </motion.p>
+
+          {/* Extra copy + links for the main hero image */}
+          {photo.id === "portrait-1" && (
+            <>
+              <motion.p
+                initial={{ opacity: 0, y: 10 }}
+                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+                transition={{
+                  duration: 1,
+                  ease: [0.25, 0.1, 0.25, 1],
+                  delay: 0.8,
+                }}
+                className="mt-6 max-w-xl text-sm text-slate-100/90 sm:text-base"
+              >
+                A portfolio for a life split between the piano and the plate — concerts,
+                recordings, restaurant criticism, and the spaces where they overlap.
+              </motion.p>
+              <motion.p
+                initial={{ opacity: 0, y: 10 }}
+                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+                transition={{
+                  duration: 1,
+                  ease: [0.25, 0.1, 0.25, 1],
+                  delay: 1.0,
+                }}
+                className="mt-3 max-w-xl text-sm text-slate-200/90 sm:text-base"
+              >
+              </motion.p>
+
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
+                transition={{
+                  duration: 1,
+                  ease: [0.25, 0.1, 0.25, 1],
+                  delay: 1.2,
+                }}
+                className="mt-6 flex flex-wrap justify-center gap-3 text-sm"
+              >
+                <Link
+                  to="/about"
+                  className="rounded-full bg-slate-100 px-4 py-2 text-slate-900 transition hover:bg-slate-200"
+                >
+                  About Me
+                </Link>
+                <Link
+                  to="/food"
+                  className="rounded-full border border-slate-500/70 px-4 py-2 text-slate-100 transition hover:border-slate-200/80"
+                >
+                  Read My Culinary Journeys
+                </Link>
+              </motion.div>
+            </>
+          )}
+
+          {/* Call-to-action for the performances image */}
+          {photo.id === "music-1" && (
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
+              transition={{
+                duration: 1,
+                ease: [0.25, 0.1, 0.25, 1],
+                delay: 0.9,
+              }}
+              className="mt-6 flex justify-center text-sm"
+            >
+              <Link
+                to="/music"
+                className="rounded-full border border-slate-500/70 px-4 py-2 text-slate-100 transition hover:border-slate-200/80"
+              >
+                Explore My Music
+              </Link>
+            </motion.div>
+          )}
+
+          {/* Call-to-action for the contact image */}
+          {photo.id === "food-1" && (
+            <motion.div
+              initial={{ opacity: 0, y: 12 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
+              transition={{
+                duration: 1,
+                ease: [0.25, 0.1, 0.25, 1],
+                delay: 0.9,
+              }}
+              className="mt-6 flex justify-center text-sm"
+            >
+              <Link
+                to="/contact"
+                className="rounded-full border border-slate-500/70 px-4 py-2 text-slate-100 transition hover:border-slate-200/80"
+              >
+                CONNECT WITH ME
+              </Link>
+            </motion.div>
+          )}
+        </motion.div>
+      </div>
+    </div>
+  );
+}
 
 export function HomePage() {
   const photos = [
@@ -8,48 +205,32 @@ export function HomePage() {
       id: "portrait-1",
       alt: "Portrait placeholder",
       src: "/photos/portraits/portrait-1.jpg",
+      title: "Divad Wash",
+      subtitle: "Music at the keyboard, stories at the table.",
     },
     {
       id: "music-1",
       alt: "Performance placeholder",
       src: "/photos/music/performance-1.jpg",
+      title: "performances",
+      subtitle: "music in motion",
     },
     {
       id: "food-1",
       alt: "Food placeholder",
       src: "/photos/food/food-1.jpg",
+      title: "Connect",
+      subtitle: "Work with me",
     },
   ];
 
   return (
-    <div className="space-y-10">
-      <HeroHeader
-        title="Music at the keyboard, stories at the table."
-        subtitle="A portfolio for a life split between the piano and the plate — concerts, recordings, restaurant criticism, and the spaces where they overlap."
-      />
-
-      <div className="grid gap-10 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
-        <div className="space-y-6">
-          <p className="text-sm text-slate-200 sm:text-base">
-            This site will collect upcoming performances, selected awards, recordings and
-            curated restaurant reviews — all in one place and presented with care.
-          </p>
-          <div className="flex flex-wrap gap-3 text-sm">
-            <Link
-              to="/music"
-              className="rounded-full bg-slate-100 px-4 py-2 text-slate-900 transition hover:bg-slate-200"
-            >
-              Explore the music
-            </Link>
-            <Link
-              to="/food"
-              className="rounded-full border border-slate-500/70 px-4 py-2 text-slate-100 transition hover:border-slate-200/80"
-            >
-              Read the restaurant reviews
-            </Link>
-          </div>
-        </div>
-        <PhotoGrid photos={photos} />
+    <div className="relative">
+      {/* Full-screen images stacked vertically, scroll with page */}
+      <div className="relative flex flex-col">
+        {photos.map((photo) => (
+          <ImageSection key={photo.id} photo={photo} />
+        ))}
       </div>
     </div>
   );

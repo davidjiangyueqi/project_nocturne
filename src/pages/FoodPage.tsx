@@ -13,16 +13,16 @@ export function FoodPage() {
   return (
     <div className="space-y-10">
       <HeroHeader
-        title="Food & restaurant writing"
-        subtitle="Reviews that care about pacing, texture, and silence as much as a recital program would."
+        title="Culinary Journeys"
+        subtitle="My culinary adventures around the world"
       />
 
       <section className="grid gap-8 md:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)]">
         <div className="space-y-4">
           <SectionHeader
             eyebrow="Map"
-            title="Restaurants reviewed"
-            description="Each pin corresponds to a restaurant with a full, print‑styled review."
+            title="Restaurants Visited"
+            description="Move the map to see where I've been"
           />
           <div className="overflow-hidden rounded-3xl border border-slate-800 bg-slate-900/80">
             <MapContainer
