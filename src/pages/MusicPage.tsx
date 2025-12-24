@@ -22,7 +22,7 @@ export function MusicPage() {
           {awards.map((award) => (
             <div
               key={`${award.year}-${award.title}`}
-              className="rounded-2xl border border-slate-800 bg-slate-900/70 px-4 py-3 text-sm"
+              className="rounded-2xl border border-slate-800 bg-black/70 px-4 py-3 text-sm"
             >
               <div className="flex items-center justify-between gap-3">
                 <p className="font-medium text-slate-50">{award.title}</p>
@@ -48,7 +48,7 @@ export function MusicPage() {
             {upcomingPerformances.map((perf) => (
               <article
                 key={`${perf.date}-${perf.venue}`}
-                className="rounded-2xl border border-slate-800 bg-slate-900/70 px-4 py-3"
+                className="rounded-2xl border border-slate-800 bg-black/70 px-4 py-3"
               >
                 <p className="text-xs text-slate-400">{perf.date}</p>
                 <p className="mt-1 font-medium text-slate-50">{perf.venue}</p>
@@ -69,7 +69,7 @@ export function MusicPage() {
             {selectedPastPerformances.map((perf) => (
               <article
                 key={`${perf.date}-${perf.venue}`}
-                className="rounded-2xl border border-slate-800 bg-slate-900/70 px-4 py-3"
+                className="rounded-2xl border border-slate-800 bg-black/70 px-4 py-3"
               >
                 <p className="text-xs text-slate-400">{perf.date}</p>
                 <p className="mt-1 font-medium text-slate-50">{perf.venue}</p>
@@ -93,7 +93,7 @@ export function MusicPage() {
           {videos.map((video) => (
             <article
               key={video.id}
-              className="space-y-3 rounded-3xl border border-slate-800 bg-slate-900/70 p-4"
+              className="space-y-3 rounded-3xl border border-slate-800 bg-black/70 p-4"
             >
               <div className="aspect-video overflow-hidden rounded-2xl bg-black/60">
                 <iframe

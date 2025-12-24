@@ -17,7 +17,7 @@ function ImageSection({ photo }: { photo: Photo }) {
   return (
     <div
       ref={ref}
-      className="relative overflow-hidden bg-slate-950"
+      className="relative overflow-hidden bg-black"
       style={{
         width: "100vw",
         height: "100vh",
@@ -35,7 +35,7 @@ function ImageSection({ photo }: { photo: Photo }) {
         }}
       />
       {/* Overlay for better text readability */}
-      <div className="absolute inset-0 bg-slate-950/20" />
+      <div className="absolute inset-0 bg-black/20" />
       
       {/* Text Overlay - Kiln SF style */}
       <div className="absolute inset-0 flex items-center justify-center">
@@ -138,13 +138,13 @@ function ImageSection({ photo }: { photo: Photo }) {
               >
                 <Link
                   to="/about"
-                  className="rounded-full bg-slate-100 px-4 py-2 text-slate-900 transition hover:bg-slate-200"
+                  className="rounded-full bg-black px-4 py-2 text-slate-50 transition hover:bg-gray-900"
                 >
                   About Me
                 </Link>
                 <Link
                   to="/food"
-                  className="rounded-full border border-slate-500/70 px-4 py-2 text-slate-100 transition hover:border-slate-200/80"
+                  className="rounded-full bg-black px-4 py-2 text-slate-50 transition hover:bg-gray-900"
                 >
                   Read My Culinary Journeys
                 </Link>
@@ -166,7 +166,7 @@ function ImageSection({ photo }: { photo: Photo }) {
             >
               <Link
                 to="/music"
-                className="rounded-full border border-slate-500/70 px-4 py-2 text-slate-100 transition hover:border-slate-200/80"
+                className="rounded-full bg-black px-4 py-2 text-slate-50 transition hover:bg-gray-900"
               >
                 Explore My Music
               </Link>
@@ -187,7 +187,7 @@ function ImageSection({ photo }: { photo: Photo }) {
             >
               <Link
                 to="/contact"
-                className="rounded-full border border-slate-500/70 px-4 py-2 text-slate-100 transition hover:border-slate-200/80"
+                className="rounded-full bg-black px-4 py-2 text-slate-50 transition hover:bg-gray-900"
               >
                 CONNECT WITH ME
               </Link>

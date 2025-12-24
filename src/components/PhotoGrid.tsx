@@ -14,7 +14,7 @@ export function PhotoGrid({ photos }: PhotoGridProps) {
       {photos.map((photo) => (
         <figure
           key={photo.id}
-          className="group relative overflow-hidden rounded-2xl border border-slate-800/80 bg-slate-900/80"
+          className="group relative overflow-hidden rounded-2xl border border-slate-800/80 bg-black/80"
         >
           <div className="aspect-[4/5] overflow-hidden">
             <img

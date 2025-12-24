@@ -23,7 +23,7 @@ export function ContactPage() {
               name="name"
               type="text"
               required
-              className="w-full rounded-2xl border border-slate-700 bg-slate-900/80 px-3 py-2 text-sm text-slate-50 outline-none ring-0 transition focus:border-brand-500"
+              className="w-full rounded-2xl border border-slate-700 bg-black/80 px-3 py-2 text-sm text-slate-50 outline-none ring-0 transition focus:border-slate-400"
             />
           </div>
           <div className="space-y-1">
@@ -35,7 +35,7 @@ export function ContactPage() {
               name="email"
               type="email"
               required
-              className="w-full rounded-2xl border border-slate-700 bg-slate-900/80 px-3 py-2 text-sm text-slate-50 outline-none ring-0 transition focus:border-brand-500"
+              className="w-full rounded-2xl border border-slate-700 bg-black/80 px-3 py-2 text-sm text-slate-50 outline-none ring-0 transition focus:border-slate-400"
             />
           </div>
           <div className="space-y-1">
@@ -47,12 +47,12 @@ export function ContactPage() {
               name="message"
               rows={4}
               required
-              className="w-full rounded-2xl border border-slate-700 bg-slate-900/80 px-3 py-2 text-sm text-slate-50 outline-none ring-0 transition focus:border-brand-500"
+              className="w-full rounded-2xl border border-slate-700 bg-black/80 px-3 py-2 text-sm text-slate-50 outline-none ring-0 transition focus:border-slate-400"
             />
           </div>
           <button
             type="submit"
-            className="inline-flex rounded-full bg-slate-100 px-5 py-2 text-sm font-medium text-slate-900 transition hover:bg-slate-200"
+            className="inline-flex rounded-full bg-black px-5 py-2 text-sm font-medium text-slate-50 transition hover:bg-gray-900"
           >
             Send
           </button>

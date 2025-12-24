@@ -4,13 +4,13 @@
 
 @layer base {
   body {
-    @apply bg-slate-950 text-slate-50 antialiased;
+    @apply bg-black text-slate-50 antialiased;
   }
 }
 
 @layer utilities {
   .glass-panel {
-    @apply bg-slate-900/70 border border-slate-700/60 backdrop-blur-md;
+    @apply bg-black/70 border border-slate-700/60 backdrop-blur-md;
   }
 
   .gradient-orbit {

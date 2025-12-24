@@ -8,8 +8,8 @@ import { restaurants } from "../data/restaurants";
 export function FoodPage() {
   const restaurantMarkerIcon = L.divIcon({
     className: "",
-    html:
-      '<span style="display:inline-flex;width:14px;height:14px;border-radius:9999px;background:rgba(129,140,248,0.9);box-shadow:0 0 12px rgba(129,140,248,0.9);border:1px solid rgba(191,219,254,0.9);"></span>',
+      html:
+        '<span style="display:inline-flex;width:14px;height:14px;border-radius:9999px;background:rgba(129,140,248,0.9);box-shadow:0 0 12px rgba(129,140,248,0.9);border:1px solid rgba(191,219,254,0.9);"></span>',
     iconSize: [14, 14],
     iconAnchor: [7, 7],
   });
@@ -48,7 +48,7 @@ export function FoodPage() {
           description="Pan around to see each stop—this map takes center stage."
         />
         <div className="mx-auto max-w-6xl">
-          <div className="overflow-hidden rounded-3xl border border-slate-800 bg-slate-900/80 shadow-xl">
+          <div className="overflow-hidden rounded-3xl border border-slate-800 bg-black/80 shadow-xl">
             <MapContainer
               center={[center.lat, center.lng]}
               zoom={5}
@@ -76,7 +76,7 @@ export function FoodPage() {
                       )}
                       <Link
                         to={`/food/${restaurant.slug}`}
-                        className="mt-1 inline-block text-[0.7rem] font-medium text-indigo-600 underline"
+                        className="mt-1 inline-block text-[0.7rem] font-medium text-slate-300 underline"
                       >
                         View full review
                       </Link>
@@ -108,9 +108,9 @@ export function FoodPage() {
                 >
                   {/* Marker on axis */}
                   <div className="relative z-10 mb-3 flex items-center gap-2">
-                    <div className="flex h-8 items-center rounded-full bg-slate-900/90 px-3 text-xs text-slate-200 ring-1 ring-slate-700">
+                    <div className="flex h-8 items-center rounded-full bg-black/90 px-3 text-xs text-slate-200 ring-1 ring-slate-700">
                       <span className="mr-1 text-slate-500">#{index + 1}</span>
-                      <span className="h-1 w-4 rounded-full bg-indigo-400" />
+                      <span className="h-1 w-4 rounded-full bg-black" />
                       {restaurant.visitedAt && (
                         <span className="ml-2 text-[0.7rem] text-slate-300">
                           {formatVisitedDate(restaurant.visitedAt)}
@@ -120,7 +120,7 @@ export function FoodPage() {
                   </div>
 
                   {/* Card below axis */}
-                  <div className="mt-2 w-full max-w-xs rounded-2xl border border-slate-800 bg-slate-900/80 px-4 py-4 text-left shadow-sm transition hover:border-slate-400/80">
+                  <div className="mt-2 w-full max-w-xs rounded-2xl border border-slate-800 bg-black/80 px-4 py-4 text-left shadow-sm transition hover:border-slate-400/80">
                     <p className="text-sm font-semibold text-slate-50">
                       {restaurant.name}
                     </p>
@@ -136,7 +136,7 @@ export function FoodPage() {
                     <div className="mt-3 flex items-center justify-between">
                       <Link
                         to={`/food/${restaurant.slug}`}
-                        className="inline-flex items-center gap-1 rounded-full bg-indigo-500 px-3 py-1 text-[0.7rem] font-semibold text-slate-50 shadow-sm transition hover:bg-indigo-400"
+                        className="inline-flex items-center gap-1 rounded-full bg-black px-3 py-1 text-[0.7rem] font-semibold text-slate-50 shadow-sm transition hover:bg-gray-900"
                       >
                         <span>Open review</span>
                         <span aria-hidden="true">↗</span>
